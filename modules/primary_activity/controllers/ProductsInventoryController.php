@@ -4,18 +4,14 @@ namespace app\modules\primary_activity\controllers;
 
 use app\models\ProductsInventory;
 use app\modules\primary_activity\models\ProductsInventorySearch;
+use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+
 use yii\filters\VerbFilter;
 
-/**
- * ProductsInventoryController implements the CRUD actions for ProductsInventory model.
- */
 class ProductsInventoryController extends Controller
 {
-    /**
-     * @inheritDoc
-     */
     public function behaviors()
     {
         return array_merge(
@@ -31,15 +27,16 @@ class ProductsInventoryController extends Controller
         );
     }
 
-    /**
-     * Lists all ProductsInventory models.
-     *
-     * @return string
-     */
     public function actionIndex()
     {
         $searchModel = new ProductsInventorySearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
+
+        // Check if the search form is submitted
+        if (Yii::$app->request->get('ProductsInventorySearch')) {
+            $searchModel->load(Yii::$app->request->get());
+        }
+
+        $dataProvider = $searchModel->search($searchModel->attributes);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -47,12 +44,6 @@ class ProductsInventoryController extends Controller
         ]);
     }
 
-    /**
-     * Displays a single ProductsInventory model.
-     * @param int $id ID
-     * @return string
-     * @throws NotFoundHttpException if the model cannot be found
-     */
     public function actionView($id)
     {
         return $this->render('view', [
@@ -60,11 +51,6 @@ class ProductsInventoryController extends Controller
         ]);
     }
 
-    /**
-     * Creates a new ProductsInventory model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return string|\yii\web\Response
-     */
     public function actionCreate()
     {
         $model = new ProductsInventory();
@@ -82,13 +68,6 @@ class ProductsInventoryController extends Controller
         ]);
     }
 
-    /**
-     * Updates an existing ProductsInventory model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param int $id ID
-     * @return string|\yii\web\Response
-     * @throws NotFoundHttpException if the model cannot be found
-     */
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
@@ -102,13 +81,6 @@ class ProductsInventoryController extends Controller
         ]);
     }
 
-    /**
-     * Deletes an existing ProductsInventory model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param int $id ID
-     * @return \yii\web\Response
-     * @throws NotFoundHttpException if the model cannot be found
-     */
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
@@ -116,13 +88,6 @@ class ProductsInventoryController extends Controller
         return $this->redirect(['index']);
     }
 
-    /**
-     * Finds the ProductsInventory model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param int $id ID
-     * @return ProductsInventory the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
     protected function findModel($id)
     {
         if (($model = ProductsInventory::findOne(['id' => $id])) !== null) {

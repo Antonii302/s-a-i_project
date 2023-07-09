@@ -48,6 +48,12 @@ $this->registerJsFile($publishedRes[1] . '/control_sidebar.js', ['depends' => '\
         <?= $this->render('footer') ?>
     </div>
 
+    <?php $this->registerJs(<<<JS
+        $(function () {
+            $('[data-toggle="popover"]').popover();
+        });
+    JS) ?><!-- /.javascript -->
+    
     <?php $this->endBody() ?>
 </body>
 
