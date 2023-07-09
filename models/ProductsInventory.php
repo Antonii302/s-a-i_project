@@ -13,9 +13,9 @@ use Yii;
  * @property string|null $date_expiry
  * @property int|null $PurchaseDetails_id
  * @property string|null $extra_details
- * @property int $Iventory_id
+ * @property int $Inventory_id
  *
- * @property Inventory $iventory
+ * @property Inventory $inventory
  * @property Product $product
  * @property PurchaseDetails $purchaseDetails
  */
@@ -35,11 +35,11 @@ class ProductsInventory extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Product_id', 'current_quantity', 'Iventory_id'], 'required'],
-            [['Product_id', 'current_quantity', 'PurchaseDetails_id', 'Iventory_id'], 'integer'],
+            [['Product_id', 'current_quantity', 'Inventory_id'], 'required'],
+            [['Product_id', 'current_quantity', 'PurchaseDetails_id', 'Inventory_id'], 'integer'],
             [['date_expiry'], 'safe'],
             [['extra_details'], 'string'],
-            [['Iventory_id'], 'exist', 'skipOnError' => true, 'targetClass' => Inventory::class, 'targetAttribute' => ['Iventory_id' => 'id']],
+            [['Inventory_id'], 'exist', 'skipOnError' => true, 'targetClass' => Inventory::class, 'targetAttribute' => ['Inventory_id' => 'id']],
             [['Product_id'], 'exist', 'skipOnError' => true, 'targetClass' => Product::class, 'targetAttribute' => ['Product_id' => 'id']],
             [['PurchaseDetails_id'], 'exist', 'skipOnError' => true, 'targetClass' => PurchaseDetails::class, 'targetAttribute' => ['PurchaseDetails_id' => 'id']],
         ];
@@ -57,18 +57,18 @@ class ProductsInventory extends \yii\db\ActiveRecord
             'date_expiry' => 'Date Expiry',
             'PurchaseDetails_id' => 'Purchase Details ID',
             'extra_details' => 'Extra Details',
-            'Iventory_id' => 'Iventory ID',
+            'Inventory_id' => 'Inventory ID',
         ];
     }
 
     /**
-     * Gets query for [[Iventory]].
+     * Gets query for [[Inventory]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getIventory()
+    public function getInventory()
     {
-        return $this->hasOne(Inventory::class, ['id' => 'Iventory_id']);
+        return $this->hasOne(Inventory::class, ['id' => 'Inventory_id']);
     }
 
     /**

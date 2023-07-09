@@ -22,7 +22,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'extra_details')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'Iventory_id')->textInput() ?>
+    <?= $form->field($model, 'Inventory_id')->textInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

@@ -17,7 +17,7 @@ class ProductsInventorySearch extends ProductsInventory
     public function rules()
     {
         return [
-            [['id', 'Product_id', 'current_quantity', 'PurchaseDetails_id', 'Iventory_id'], 'integer'],
+            [['id', 'Product_id', 'current_quantity', 'PurchaseDetails_id', 'Inventory_id'], 'integer'],
             [['date_expiry', 'extra_details'], 'safe'],
         ];
     }
@@ -63,7 +63,7 @@ class ProductsInventorySearch extends ProductsInventory
             'current_quantity' => $this->current_quantity,
             'date_expiry' => $this->date_expiry,
             'PurchaseDetails_id' => $this->PurchaseDetails_id,
-            'Iventory_id' => $this->Iventory_id,
+            'Inventory_id' => $this->Inventory_id,
         ]);
 
         $query->andFilterWhere(['like', 'extra_details', $this->extra_details]);

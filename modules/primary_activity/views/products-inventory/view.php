@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'date_expiry',
             'PurchaseDetails_id',
             'extra_details:ntext',
-            'Iventory_id',
+            'Inventory_id',
         ],
     ]) ?>
 
