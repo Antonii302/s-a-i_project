@@ -8,9 +8,9 @@ use Yii;
  * This is the model class for table "product".
  *
  * @property int $id
- * @property int $ProductCategory_id
+ * @property int $productCategory_id
  * @property string $name
- * @property int $UnitMeasurement_id
+ * @property int $unitMeasurement_id
  *
  * @property ProductCategory $productCategory
  * @property ProductsInventory[] $productsInventories
@@ -32,12 +32,12 @@ class Product extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['ProductCategory_id', 'name', 'UnitMeasurement_id'], 'required'],
-            [['ProductCategory_id', 'UnitMeasurement_id'], 'integer'],
+            [['productCategory_id', 'name', 'unitMeasurement_id'], 'required'],
+            [['productCategory_id', 'unitMeasurement_id'], 'integer'],
             [['name'], 'string', 'max' => 40],
             [['name'], 'unique'],
-            [['ProductCategory_id'], 'exist', 'skipOnError' => true, 'targetClass' => ProductCategory::class, 'targetAttribute' => ['ProductCategory_id' => 'id']],
-            [['UnitMeasurement_id'], 'exist', 'skipOnError' => true, 'targetClass' => UnitMeasurement::class, 'targetAttribute' => ['UnitMeasurement_id' => 'id']],
+            [['productCategory_id'], 'exist', 'skipOnError' => true, 'targetClass' => ProductCategory::class, 'targetAttribute' => ['productCategory_id' => 'id']],
+            [['unitMeasurement_id'], 'exist', 'skipOnError' => true, 'targetClass' => UnitMeasurement::class, 'targetAttribute' => ['unitMeasurement_id' => 'id']],
         ];
     }
 
@@ -48,9 +48,9 @@ class Product extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'ProductCategory_id' => 'Product Category ID',
+            'productCategory_id' => 'Product Category ID',
             'name' => 'Name',
-            'UnitMeasurement_id' => 'Unit Measurement ID',
+            'unitMeasurement_id' => 'Unit Measurement ID',
         ];
     }
 
@@ -61,7 +61,7 @@ class Product extends \yii\db\ActiveRecord
      */
     public function getProductCategory()
     {
-        return $this->hasOne(ProductCategory::class, ['id' => 'ProductCategory_id']);
+        return $this->hasOne(ProductCategory::class, ['id' => 'productCategory_id']);
     }
 
     /**
@@ -71,7 +71,7 @@ class Product extends \yii\db\ActiveRecord
      */
     public function getProductsInventories()
     {
-        return $this->hasMany(ProductsInventory::class, ['Product_id' => 'id']);
+        return $this->hasMany(ProductsInventory::class, ['product_id' => 'id']);
     }
 
     /**
@@ -81,6 +81,6 @@ class Product extends \yii\db\ActiveRecord
      */
     public function getUnitMeasurement()
     {
-        return $this->hasOne(UnitMeasurement::class, ['id' => 'UnitMeasurement_id']);
+        return $this->hasOne(UnitMeasurement::class, ['id' => 'unitMeasurement_id']);
     }
 }

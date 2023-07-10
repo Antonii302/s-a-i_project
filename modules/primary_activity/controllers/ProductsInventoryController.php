@@ -2,9 +2,13 @@
 
 namespace app\modules\primary_activity\controllers;
 
+use Yii;
+
+use yii\web\Response;
+
 use app\models\ProductsInventory;
 use app\modules\primary_activity\models\ProductsInventorySearch;
-use Yii;
+use Exception;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
@@ -18,7 +22,7 @@ class ProductsInventoryController extends Controller
             parent::behaviors(),
             [
                 'verbs' => [
-                    'class' => VerbFilter::className(),
+                    'class' => VerbFilter::class,
                     'actions' => [
                         'delete' => ['POST'],
                     ],
@@ -31,17 +35,24 @@ class ProductsInventoryController extends Controller
     {
         $searchModel = new ProductsInventorySearch();
 
-        // Check if the search form is submitted
-        if (Yii::$app->request->get('ProductsInventorySearch')) {
-            $searchModel->load(Yii::$app->request->get());
+        if (Yii::$app->request->isAjax) {
+            $queryParams = Yii::$app->request->queryParams;
+            if ($searchModel->load(Yii::$app->request->queryParams)) {
+                $dataProvider = $searchModel->search($queryParams);
+
+                return $this->renderPartial('sections/_main', [
+                    'models' => $dataProvider->getModels()
+                ]);
+            }
+
+            try {
+
+            } catch (Exception $exception) {
+
+            }
         }
 
-        $dataProvider = $searchModel->search($searchModel->attributes);
-
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+        return $this->render('index', ['searchModel' => $searchModel]);
     }
 
     public function actionView($id)

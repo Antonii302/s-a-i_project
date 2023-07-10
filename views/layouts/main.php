@@ -1,16 +1,23 @@
 <?php
 
+use yii\web\View;
+
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 \hail812\adminlte3\assets\FontAwesomeAsset::register($this);
 \hail812\adminlte3\assets\AdminLteAsset::register($this);
 
 $this->registerCssFile('https://fonts.googleapis.com/css2?family=Archivo+Narrow&display=swap');
+$this->registerCssFile(Url::to(['@web/assets/nprogress/nprogress.css']));
 
 $assetDir = Yii::$app->assetManager->getPublishedUrl('@vendor/almasaeed2010/adminlte/dist');
 
 $publishedRes = Yii::$app->assetManager->publish('@vendor/hail812/yii2-adminlte3/src/web/js');
+
 $this->registerJsFile($publishedRes[1] . '/control_sidebar.js', ['depends' => '\hail812\adminlte3\assets\AdminLteAsset']);
+$this->registerJsFile(Url::to(['@web/assets/nprogress/nprogress.js']), ['position' => View::POS_HEAD]);
+
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -53,7 +60,7 @@ $this->registerJsFile($publishedRes[1] . '/control_sidebar.js', ['depends' => '\
             $('[data-toggle="popover"]').popover();
         });
     JS) ?><!-- /.javascript -->
-    
+
     <?php $this->endBody() ?>
 </body>
 

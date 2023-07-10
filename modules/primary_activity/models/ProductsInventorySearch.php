@@ -17,7 +17,7 @@ class ProductsInventorySearch extends ProductsInventory
     public function rules()
     {
         return [
-            [['id', 'Product_id', 'current_quantity', 'PurchaseDetails_id', 'Inventory_id'], 'integer'],
+            [['id', 'product_id', 'current_quantity', 'purchaseDetails_id', 'inventory_id'], 'integer'],
             [['date_expiry', 'extra_details'], 'safe'],
         ];
     }
@@ -59,11 +59,11 @@ class ProductsInventorySearch extends ProductsInventory
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'Product_id' => $this->Product_id,
+            'product_id' => $this->product_id,
             'current_quantity' => $this->current_quantity,
             'date_expiry' => $this->date_expiry,
-            'PurchaseDetails_id' => $this->PurchaseDetails_id,
-            'Inventory_id' => $this->Inventory_id,
+            'purchaseDetails_id' => $this->purchaseDetails_id,
+            'inventory_id' => $this->inventory_id,
         ]);
 
         $query->andFilterWhere(['like', 'extra_details', $this->extra_details]);
